@@ -1,0 +1,49 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int value,calculation[99999],i, calculation_little;/*定義，value-值，calculation-計算整數用，i-計數器，calculation_little-計算小數點用*/
+double initial,value_little;/*initial-原始值，value_little-原始值小數部分*/
+
+int main(void) {
+	puts("BASE 10 ->BASE 2");/*標題*/
+	puts("enter the value:");/*標題*/
+	scanf("%lf", &initial);/*獲得初始值*/
+	puts("value=>");/*標題*/
+
+	value = (int)initial;/*計算整數部分*/
+	while (value!=0) {/*Loop*/
+		calculation[i] = value % 2;
+		if (value == 1) {/*為了處理最後只剩下1的狀況*/
+			break;
+		}
+		else {/*正常流程*/
+			value = (int)(value / 2);
+			i++;
+		}
+	}
+	while (i >= 0) {/*反向輸出*/
+		printf("%d", calculation[i]);
+		i--;
+
+	}
+	value = (int)initial;/*計算用*/
+	value_little = initial - value;/*獲得小數部分*/
+	
+	printf(".");/*先打好已表示接下來的是小數部分*/
+	while (value_little!=0) {
+		calculation_little = ((int)(value_little * 2));
+		if (calculation_little<1) {
+			value_little = value_little * 2;
+			
+			printf("0");
+		}
+		else if (calculation_little >= 1) {
+			printf("%d", calculation_little);
+			value_little = value_little * 2 - 1;
+		}
+	}
+	system("pause");
+	return 0;
+}
